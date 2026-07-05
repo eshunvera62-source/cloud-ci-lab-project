@@ -8,13 +8,18 @@ This runs app.py as a subprocess and checks:
 
 import subprocess
 import sys
+from pathlib import Path
+
+
+APP_PATH = Path(__file__).with_name("app.py")
 
 
 def test_app_runs_without_error():
     result = subprocess.run(
-        [sys.executable, "app.py"],
+        [sys.executable, str(APP_PATH)],
         capture_output=True,
         text=True,
+        check=False,
     )
 
     assert result.returncode == 0, f"app.py exited with error: {result.stderr}"

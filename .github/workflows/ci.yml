@@ -2,11 +2,17 @@ name: Cloud CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cloud-ci-cd-project
 
     steps:
       - name: Checkout code
@@ -15,14 +21,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version-file: ".python-version"
 
       - name: Print runtime version
         run: python --version
 
       - name: Echo build message
         run: echo "Starting Cloud CI Pipeline build..."
-
       - name: Run app
         run: python app.py
 
