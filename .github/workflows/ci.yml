@@ -30,4 +30,4 @@ jobs:
         run: python app.py
 
       - name: Run tests
-        run: python test_app.py
+        run: python wrong_file_name.py
